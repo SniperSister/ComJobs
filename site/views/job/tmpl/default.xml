@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_JOBS_JOB_VIEW_DEFAULT_TITLE">
+		<message>COM_JOBS_JOB_VIEW_DEFAULT_DESC</message>
+	</layout>
+	<fields
+		name="request"
+		addfieldpath="/administrator/components/com_jobs/models/fields"
+	>
+		<fieldset name="request">
+			<field
+				name="id"
+				type="job"
+				label="COM_JOBS_JOB_FIELD_TITLE_LABEL"
+				description="COM_JOBS_JOB_FIELD_TITLE_DESC"
+			/>
+		</fieldset>
+	</fields>
+</metadata>
+

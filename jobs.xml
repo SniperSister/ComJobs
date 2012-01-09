@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5.0" method="upgrade">
+	<name>COM_JOBS</name>
+	<creationDate>January 2012</creationDate>
+	<author>David Jardin</author>
+	<authorEmail>d.jardin@djumla.de</authorEmail>
+	<authorUrl>http://www.djumla.de</authorUrl>
+	<copyright>Copyright Info</copyright>
+	<license>License Info</license>
+	<version>0.0.1</version>
+	<description>COM_JOBS_DESCRIPTION</description>
+ 
+	<!-- PHP-Skript wird ausgeführt bei Installation, Deinstallation und Update -->
+	<scriptfile>script.php</scriptfile>
+ 
+	<!-- SQL-Skript für die Installation -->
+	<install> 
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<!-- SQL-Skript für die Deinstallation -->
+	<uninstall> 
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+	<!-- SQL-Skripte für die Aktualisierung der Erweiterung -->
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+	
+ 	<!-- Kopieranweisungen für das Frontend -->
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>jobs.php</filename>
+		<filename>controller.php</filename>
+		<folder>views</folder>
+		<folder>models</folder>
+		<folder>language</folder>
+	</files>
+	
+ 	<!-- Kopieranweisungen für das Media-Verzeichnis -->
+	<media destination="com_jobs" folder="media">
+		<filename>index.html</filename>
+		<folder>images</folder>
+	</media>
+ 
+	<administration>
+		<!-- Administrations Menü -->
+		<menu img="../media/com_jobs/images/jobs-16x16.png">COM_JOBS</menu>
+		<!-- Kopieranweisungen für das Backend -->
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>config.xml</filename>
+			<filename>access.xml</filename>
+			<filename>jobs.php</filename>
+			<filename>controller.php</filename>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>models</folder>
+			<folder>views</folder>
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+		</files>
+ 
+		<languages folder="admin">
+			<language tag="de-DE">language/de-DE/de-DE.com_jobs.ini</language>
+			<language tag="de-DE">language/de-DE/de-DE.com_jobs.sys.ini</language>
+		</languages>
+	</administration>
+ 
+	<!-- UPDATESERVER DEFINITION -->
+	<updateservers>
+		<server type="extension" priority="1" name="Jobs Update Site">http://yourdomain.com/update/jobs-update.xml</server>
+	</updateservers>
+ 
+</extension>
