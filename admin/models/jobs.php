@@ -8,20 +8,20 @@ jimport('joomla.application.component.modellist');
  */
 class JobsModelJobs extends JModelList
 {
-	/**
-	 * Method to build an SQL query to load the list data.
-	 *
-	 * @return	string	An SQL query
-	 */
-	protected function getListQuery()
-	{
-		// Create a new query object.		
-		$db = JFactory::getDBO();
-		$query = $db->getQuery(true);
-		// Select some fields
-		$query->select('id,title');
-		// From the jobs table
-		$query->from('#__jobs');
-		return $query;
-	}
+    /**
+     * Method to build an SQL query to load the list data.
+     *
+     * @return	string	An SQL query
+     */
+    protected function getListQuery()
+    {
+        // Create a new query object.
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        // Select some fields
+        $query->select('id,title');
+        // From the jobs table
+        $query->from('#__jobs');
+        return $query;
+    }
 }

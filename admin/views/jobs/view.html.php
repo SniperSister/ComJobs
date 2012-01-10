@@ -57,7 +57,7 @@ class JobsViewJobs extends JView
 		}
 		if ($canDo->get('core.delete')) 
 		{
-			JToolBarHelper::deleteList('', 'job.delete', 'JTOOLBAR_DELETE');
+			JToolBarHelper::deleteList('', 'jobs.delete', 'JTOOLBAR_DELETE');
 		}
 		if ($canDo->get('core.admin')) 
 		{

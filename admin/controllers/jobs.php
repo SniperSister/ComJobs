@@ -14,7 +14,7 @@ class JobsControllerJobs extends JControllerAdmin
 	 * Proxy for getModel.
 	 * @since	1.6
 	 */
-	public function getModel($name = 'Jobs', $prefix = 'JobsModel') 
+	public function getModel($name = 'Job', $prefix = 'JobsModel')
 	{
 		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
 		return $model;

@@ -17,9 +17,10 @@ class JobsController extends JController
 	 */
 	function display($cachable = false) 
 	{
+		$input =& JFactory::getApplication()->input;
 		// set default view if not set
-		JRequest::setVar('view', JRequest::getCmd('view', 'Jobs'));
- 
+        $input->set('view',$input->get("view","Jobs","CMD"));
+
 		// call parent behavior
 		parent::display($cachable);
  
