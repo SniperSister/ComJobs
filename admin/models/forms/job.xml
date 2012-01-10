@@ -18,6 +18,14 @@
 			required="true"
 			default=""
 		/>
+        <field
+                name="description"
+                type="editor"
+                label="COM_JOBS_JOB_FIELD_DESCRIPTION_LABEL"
+                description="COM_JOBS_JOB_FIELD_DESCRIPTION_DESC"
+                required="true"
+                filter="JComponentHelper::filterText"
+        />
 		<field
 			name="catid"
 			type="category"

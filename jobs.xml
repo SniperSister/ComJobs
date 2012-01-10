@@ -34,7 +34,6 @@
 	
  	<!-- Kopieranweisungen für das Frontend -->
 	<files folder="site">
-		<filename>index.html</filename>
 		<filename>jobs.php</filename>
 		<filename>controller.php</filename>
 		<folder>views</folder>
@@ -47,13 +46,16 @@
 		<filename>index.html</filename>
 		<folder>images</folder>
 	</media>
- 
+	
+ 	<languages folder="site">
+		<language tag="de-DE">language/de-DE/de-DE.com_jobs.ini</language>
+	</languages>
+
 	<administration>
 		<!-- Administrations Menü -->
 		<menu img="../media/com_jobs/images/jobs-16x16.png">COM_JOBS</menu>
 		<!-- Kopieranweisungen für das Backend -->
 		<files folder="admin">
-			<filename>index.html</filename>
 			<filename>config.xml</filename>
 			<filename>access.xml</filename>
 			<filename>jobs.php</filename>

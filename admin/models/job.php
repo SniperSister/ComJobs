@@ -33,7 +33,7 @@ class JobsModelJob extends JModelAdmin
 	 * @return	JTable	A database object
 	 * @since	1.6
 	 */
-	public function getTable($type = 'Jobs', $prefix = 'JobTable', $config = array()) 
+	public function getTable($type = 'Jobs', $prefix = 'JobsTable', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}

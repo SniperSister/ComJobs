@@ -26,12 +26,12 @@ class JFormFieldJob extends JFormFieldList
 	protected function getOptions() 
 	{
 		$db = JFactory::getDBO();
-		$query = new JDatabaseQuery;
+		$query = $db->getQuery(true);
 		$query->select('#__jobs.id as id,#__jobs.title as title,#__categories.title as category,catid');
 		$query->from('#__jobs');
 		$query->leftJoin('#__categories on catid=#__categories.id');
 		$db->setQuery((string)$query);
-		$messages = $db->loadObjectList();
+		$jobs = $db->loadObjectList();
 		$options = array();
 		if ($jobs)
 		{

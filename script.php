@@ -3,9 +3,9 @@
 defined('_JEXEC') or die('Restricted access');
  
 /**
- * Script file of HelloWorld component
+ * Script file of Jobs component
  */
-class com_JobsInstallerScript
+class com_jobsInstallerScript
 {
 	/**
 	 * method to install the component
