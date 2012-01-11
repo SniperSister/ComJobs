@@ -5,7 +5,17 @@
 		label="COM_JOBS_CONFIG_TITLE_SETTINGS_LABEL"
 		description="COM_JOBS_CONFIG_TITLE_SETTINGS_DESC"
 	>
-		<field
+        <field
+                name="show_title"
+                type="radio"
+                label="COM_JOBS_JOB_FIELD_SHOW_TITLE_LABEL"
+                description="COM_JOBS_JOB_FIELD_SHOW_TITLE_DESC"
+                default="1"
+                >
+            <option value="0">JHIDE</option>
+            <option value="1">JSHOW</option>
+        </field>
+        <field
 			name="show_category"
 			type="radio"
 			label="COM_JOBS_JOB_FIELD_SHOW_CATEGORY_LABEL"

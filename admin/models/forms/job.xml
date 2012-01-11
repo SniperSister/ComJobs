@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form
-	addrulepath="/administrator/components/com_jobs/models/rules"
->
-	<fieldset name="details">
-		<field
-			name="id"
-			type="hidden"
-		/>
-		<field
-			name="title"
-			type="text"
-			label="COM_JOBS_JOB_FIELD_TITLE_LABEL"
-			description="COM_JOBS_JOB_FIELD_TITLE_DESC"
-			size="40"
-			class="inputbox validate-title"
-			validate="title"
-			required="true"
-			default=""
-		/>
+        addrulepath="/administrator/components/com_jobs/models/rules"
+        >
+    <fieldset name="details">
+        <field
+                name="id"
+                type="hidden"
+                />
+        <field
+                name="title"
+                type="text"
+                label="COM_JOBS_JOB_FIELD_TITLE_LABEL"
+                description="COM_JOBS_JOB_FIELD_TITLE_DESC"
+                size="40"
+                class="inputbox validate-title"
+                validate="title"
+                required="true"
+                default=""
+                />
         <field
                 name="description"
                 type="editor"
@@ -25,36 +25,47 @@
                 description="COM_JOBS_JOB_FIELD_DESCRIPTION_DESC"
                 required="true"
                 filter="JComponentHelper::filterText"
-        />
-		<field
-			name="catid"
-			type="category"
-			extension="com_jobs"
-			class="inputbox"
-			default=""
-			label="COM_JOBS_JOB_FIELD_CATID_LABEL"
-			description="COM_JOBS_JOB_FIELD_CATID_DESC"
-			required="true"
-		>
-			<option value="0">JOPTION_SELECT_CATEGORY</option>
-		</field>
-	</fieldset>
-	<fields name="params">
-		<fieldset
-			name="params"
-			label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS"
-		>
-			<field
-				name="show_category"
-				type="list"
-				label="COM_JOBS_JOB_FIELD_SHOW_CATEGORY_LABEL"
-				description="COM_JOBS_JOB_FIELD_SHOW_CATEGORY_DESC"
-				default=""
-			>
-				<option value="">JGLOBAL_USE_GLOBAL</option>
-				<option value="0">JHIDE</option>
-				<option value="1">JSHOW</option>
-			</field>
-		</fieldset>
-	</fields>
+                />
+        <field
+                name="catid"
+                type="category"
+                extension="com_jobs"
+                class="inputbox"
+                default=""
+                label="COM_JOBS_JOB_FIELD_CATID_LABEL"
+                description="COM_JOBS_JOB_FIELD_CATID_DESC"
+                required="true"
+                >
+            <option value="0">JOPTION_SELECT_CATEGORY</option>
+        </field>
+    </fieldset>
+    <fields name="params">
+        <fieldset
+                name="params"
+                label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS"
+        >
+            <field
+                    name="show_title"
+                    type="list"
+                    label="COM_JOBS_JOB_FIELD_SHOW_TITLE_LABEL"
+                    description="COM_JOBS_JOB_FIELD_SHOW_TITLE_DESC"
+                    default=""
+                    >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+            <field
+                    name="show_category"
+                    type="list"
+                    label="COM_JOBS_JOB_FIELD_SHOW_CATEGORY_LABEL"
+                    description="COM_JOBS_JOB_FIELD_SHOW_CATEGORY_DESC"
+                    default=""
+                    >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+        </fieldset>
+    </fields>
 </form>

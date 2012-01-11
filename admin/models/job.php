@@ -11,20 +11,6 @@ jimport('joomla.application.component.modeladmin');
 class JobsModelJob extends JModelAdmin
 {
 	/**
-	 * Method override to check if you can edit an existing record.
-	 *
-	 * @param	array	$data	An array of input data.
-	 * @param	string	$key	The name of the key for the primary key.
-	 *
-	 * @return	boolean
-	 * @since	1.6
-	 */
-	protected function allowEdit($data = array(), $key = 'id')
-	{
-		// Check specific edit permission then general edit permission.
-		return JFactory::getUser()->authorise('core.edit', 'com_jobs.job.'.((int) isset($data[$key]) ? $data[$key] : 0)) or parent::allowEdit($data, $key);
-	}
-	/**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
 	 * @param	type	The table type to instantiate
@@ -55,6 +41,22 @@ class JobsModelJob extends JModelAdmin
 		}
 		return $form;
 	}
+    /**
+     * Method to get the data that should be injected in the form.
+     *
+     * @return	mixed	The data for the form.
+     * @since	1.6
+     */
+    protected function loadFormData()
+    {
+        // Check the session for previously entered form data.
+        $data = JFactory::getApplication()->getUserState('com_jobs.edit.job.data', array());
+        if (empty($data))
+        {
+            $data = $this->getItem();
+        }
+        return $data;
+    }
 	/**
 	 * Method to get the script that have to be included on the form
 	 *
@@ -64,20 +66,5 @@ class JobsModelJob extends JModelAdmin
 	{
 		return 'administrator/components/com_jobs/models/forms/job.js';
 	}
-	/**
-	 * Method to get the data that should be injected in the form.
-	 *
-	 * @return	mixed	The data for the form.
-	 * @since	1.6
-	 */
-	protected function loadFormData() 
-	{
-		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_jobs.edit.job.data', array());
-		if (empty($data)) 
-		{
-			$data = $this->getItem();
-		}
-		return $data;
-	}
+
 }
