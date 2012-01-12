@@ -32,12 +32,13 @@ class JobsViewJobs extends JView
  
 		// Set the toolbar
 		$this->addToolBar();
- 
+
+        // Set the document
+        $this->setDocument();
+
 		// Display the template
 		parent::display($tpl);
- 
-		// Set the document
-		$this->setDocument();
+
 	}
  
 	/**

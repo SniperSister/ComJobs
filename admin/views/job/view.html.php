@@ -47,9 +47,7 @@ class JobsViewJob extends JView
 	 */
 	protected function addToolBar() 
 	{
-		JRequest::setVar('hidemainmenu', true);
-		$user = JFactory::getUser();
-		$userId = $user->id;
+		JFactory::getApplication()->input->set('hidemainmenu', true);
 		$isNew = $this->item->id == 0;
 		$canDo = JobsHelper::getActions($this->item->id);
 		JToolBarHelper::title($isNew ? JText::_('COM_JOBS_MANAGER_JOB_NEW') : JText::_('COM_JOBS_MANAGER_JOB_EDIT'), 'jobs');

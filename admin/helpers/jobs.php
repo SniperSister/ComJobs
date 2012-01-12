@@ -25,18 +25,13 @@ abstract class JobsHelper
 	/**
 	 * Get the actions
 	 */
-	public static function getActions($messageId = 0)
+	public static function getActions()
 	{
 		$user	= JFactory::getUser();
 		$result	= new JObject;
- 
-		if (empty($messageId)) {
-			$assetName = 'com_jobs';
-		}
-		else {
-			$assetName = 'com_jobs.message.'.(int) $messageId;
-		}
- 
+
+		$assetName = 'com_jobs';
+
 		$actions = array(
 			'core.admin', 'core.manage', 'core.create', 'core.edit', 'core.delete'
 		);
