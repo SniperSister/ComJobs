@@ -10,28 +10,13 @@ jimport('joomla.application.component.modelitem');
  */
 class JobsModelJob extends JModelItem
 {
-    /**
-     * @var object item
-     */
     protected $item;
 
-    /**
-     * Method to auto-populate the model state.
-     *
-     * This method should only be called once per instantiation and is designed
-     * to be called on the first call to the getState() method unless the model
-     * configuration flag to ignore the request is set.
-     *
-     * Note. Calling getState in this method will result in recursion.
-     *
-     * @return	void
-     * @since	1.6
-     */
     protected function populateState()
     {
         $app = JFactory::getApplication();
-        // Get the message id
-        $id = JRequest::getInt('id');
+        // Get the job id
+        $id = $app->input->get('id','','INT');
         $this->setState('job.id', $id);
 
         // Load the parameters.
@@ -62,21 +47,23 @@ class JobsModelJob extends JModelItem
     {
         if (!isset($this->item))
         {
+            $db = JFactory::getDbo();
             $id = $this->getState('job.id');
-            $this->_db->setQuery($this->_db->getQuery(true)
-                ->from('#__jobs as j')
+            $query = $db->getQuery(true);
+            $query->from('#__jobs as j')
                 ->leftJoin('#__categories as c ON j.catid=c.id')
                 ->select('j.title AS title, j.params, j.description, c.title as category')
-                ->where('j.id=' . (int)$id));
-            if (!$this->item = $this->_db->loadObject())
+                ->where('j.id=' . (int)$id);
+            $db->setQuery($query);
+            if (!$this->item = $db->loadObject())
             {
-                $this->setError($this->_db->getError());
+                $this->setError($db->getError());
             }
             else
             {
                 // Load the JSON string
                 $params = new JRegistry;
-                $params->loadJSON($this->item->params);
+                $params->loadString($this->item->params,'JSON');
                 $this->item->params = $params;
 
                 // Merge global params with item params

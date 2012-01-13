@@ -28,7 +28,7 @@ Joomla.submitbutton = function(task)
 		}
 		else
 		{
-			alert(Joomla.JText._('COM_JOBS_JOB_ERROR_UNACCEPTABLE','Bitte checken Sie ihre Eingaben'));
+			alert(Joomla.JText._('COM_JOBS_JOB_ERROR_UNACCEPTABLE','Please check your Input'));
 			return false;
 		}
 	}

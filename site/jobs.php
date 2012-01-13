@@ -9,7 +9,7 @@ jimport('joomla.application.component.controller');
 $controller = JController::getInstance('Jobs');
  
 // Perform the Request task
-$controller->execute(JRequest::getCmd('task'));
+$controller->execute(JFactory::getApplication()->input->get('task','','CMD'));
  
 // Redirect if set by the controller
 $controller->redirect();
