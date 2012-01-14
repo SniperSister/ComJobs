@@ -49,12 +49,13 @@ class JobsModelJob extends JModelItem
         {
             $db = JFactory::getDbo();
             $id = $this->getState('job.id');
-            $query = $db->getQuery(true);
-            $query->from('#__jobs as j')
+
+            $query = $db->getQuery(true)->from('#__jobs as j')
                 ->leftJoin('#__categories as c ON j.catid=c.id')
                 ->select('j.title AS title, j.params, j.description, c.title as category')
                 ->where('j.id=' . (int)$id);
             $db->setQuery($query);
+
             if (!$this->item = $db->loadObject())
             {
                 $this->setError($db->getError());
