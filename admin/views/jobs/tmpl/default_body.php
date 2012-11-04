@@ -11,7 +11,7 @@ defined('_JEXEC') or die('Restricted Access');
 			<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 		</td>
 		<td>
-			<a href="<?php echo JRoute::_('index.php?option=com_jobs&view=job&layout=edit&id='.$item->id); ?>"><?php echo $item->title; ?></a>
+			<a href="<?php echo JRoute::_('index.php?option=com_jobs&task=job.edit&id='.$item->id); ?>"><?php echo $item->title; ?></a>
 		</td>
 	</tr>
 <?php endforeach; ?>
