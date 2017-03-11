@@ -12,9 +12,6 @@ defined('_JEXEC') or die('Restricted Access');
 // Load tooltip behavior
 JHtml::_('behavior.tooltip');
 JHtml::_('formbehavior.chosen', 'select');
-
-$listOrder = $this->escape($this->state->get('list.ordering'));
-$listDirn = $this->escape($this->state->get('list.direction'));
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_jobs&view=jobs'); ?>" method="post" name="adminForm" id="adminForm">
 	<div id="j-sidebar-container" class="span2">
@@ -41,8 +38,8 @@ $listDirn = $this->escape($this->state->get('list.direction'));
 
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />
-		<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
-		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
+		<input type="hidden" name="filter_order" value="<?php echo $this->escape($this->state->get('list.ordering')); ?>" />
+		<input type="hidden" name="filter_order_Dir" value="<?php echo $this->escape($this->state->get('list.direction')); ?>" />
 		<?php echo JHtml::_('form.token'); ?>
 	</div>
 </form>
