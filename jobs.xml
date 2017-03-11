@@ -9,7 +9,10 @@
 	<license>GPL v2 or later</license>
 	<version>0.0.1</version>
 	<description>COM_JOBS_DESCRIPTION</description>
- 
+
+	<!-- PHP-Skript wird ausgeführt bei Installation, Deinstallation und Update -->
+	<scriptfile>script.php</scriptfile>
+
 	<!-- SQL-Skript für die Installation -->
 	<install> 
 		<sql>
