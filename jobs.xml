@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="component" version="2.5.0" method="upgrade">
+<extension type="component" version="3.7.0" method="upgrade">
 	<name>COM_JOBS</name>
-	<creationDate>January 2012</creationDate>
+	<creationDate>March 2017</creationDate>
 	<author>David Jardin</author>
 	<authorEmail>d.jardin@djumla.de</authorEmail>
 	<authorUrl>http://www.djumla.de</authorUrl>
-	<copyright>Copyright Info</copyright>
-	<license>License Info</license>
+	<copyright>Copyright 2017 David Jardin</copyright>
+	<license>GPL v2 or later</license>
 	<version>0.0.1</version>
 	<description>COM_JOBS_DESCRIPTION</description>
- 
-	<!-- PHP-Skript wird ausgeführt bei Installation, Deinstallation und Update -->
-	<scriptfile>script.php</scriptfile>
  
 	<!-- SQL-Skript für die Installation -->
 	<install> 
