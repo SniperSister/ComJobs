@@ -51,6 +51,7 @@
                     description="COM_JOBS_JOB_FIELD_SHOW_TITLE_DESC"
                     default=""
                     >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="0">JHIDE</option>
                 <option value="1">JSHOW</option>
             </field>
@@ -61,6 +62,7 @@
                     description="COM_JOBS_JOB_FIELD_SHOW_CATEGORY_DESC"
                     default=""
                     >
+                <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="0">JHIDE</option>
                 <option value="1">JSHOW</option>
             </field>
