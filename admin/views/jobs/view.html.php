@@ -1,79 +1,100 @@
 <?php
+/**
+ * @package    ComJobs
+ * @copyright  2017 David Jardin
+ * @license    GNU GPLv2 <http://www.gnu.org/licenses/gpl.html>
+ * @link       http://www.djumla.de
+ */
+
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
- 
-// import Joomla view library
-jimport('joomla.application.component.view');
- 
+
 /**
  * Jobs View
+ *
+ * @since  1.0.0
  */
-class JobsViewJobs extends JView
+class JobsViewJobs extends JViewLegacy
 {
+	protected $items;
+
+	protected $pagination;
+
+	protected $state;
+
 	/**
 	 * Jobs view display method
+	 *
+	 * @param   string  $tpl  templae name
+	 *
 	 * @return void
 	 */
-	function display($tpl = null) 
+	public function display($tpl = null)
 	{
 		// Get data from the model
-		$items = $this->get('Items');
-		$pagination = $this->get('Pagination');
- 
-		// Check for errors.
-		if (count($errors = $this->get('Errors'))) 
-		{
-			JError::raiseError(500, implode('<br />', $errors));
-			return false;
-		}
-		// Assign data to the view
-		$this->items = $items;
-		$this->pagination = $pagination;
- 
-		// Set the toolbar
-		$this->addToolBar();
+		$this->items = $this->get('Items');
+		$this->pagination = $this->get('Pagination');
+		$this->state = $this->get('State');
 
-        // Set the document
-        $this->setDocument();
+		// Check for errors.
+		if (count($errors = $this->get('Errors')))
+		{
+			throw new RuntimeException(implode('<br />', $errors), 500);
+		}
+
+		// Set the toolbar
+		JobsHelper::addSubmenu('jobs');
+
+		$this->addToolBar();
+		$this->sidebar = JHtmlSidebar::render();
+
+		// Add CSS for icon
+		JFactory::getDocument()->addStyleDeclaration('.icon-jobs {background:url(../media/com_jobs/images/jobs-16x16.png)}');
 
 		// Display the template
 		parent::display($tpl);
-
 	}
- 
+
 	/**
 	 * Setting the toolbar
+	 *
+	 * @return void
 	 */
-	protected function addToolBar() 
+	protected function addToolBar()
 	{
-		$canDo = JobsHelper::getActions();
+		$state = $this->get('State');
+		$canDo = JHelperContent::getActions('com_jobs', 'category', $state->get('filter.category_id'));
+		$user  = JFactory::getUser();
+
 		JToolBarHelper::title(JText::_('COM_JOBS_MANAGER_JOBS'), 'jobs');
-		if ($canDo->get('core.create')) 
+
+		if ($canDo->get('core.create'))
 		{
-			JToolBarHelper::addNew('job.add', 'JTOOLBAR_NEW');
+			JToolBarHelper::addNew('job.add');
 		}
-		if ($canDo->get('core.edit')) 
+
+		if ($canDo->get('core.edit'))
 		{
-			JToolBarHelper::editList('job.edit', 'JTOOLBAR_EDIT');
+			JToolBarHelper::editList('job.edit');
 		}
-		if ($canDo->get('core.delete')) 
+
+		if ($canDo->get('core.delete'))
 		{
-			JToolBarHelper::deleteList('', 'jobs.delete', 'JTOOLBAR_DELETE');
+			JToolBarHelper::deleteList('', 'jobs.delete');
 		}
-		if ($canDo->get('core.admin')) 
+
+		if ($user->authorise('core.admin', 'com_jobs') || $user->authorise('core.options', 'com_jobs'))
 		{
 			JToolBarHelper::divider();
 			JToolBarHelper::preferences('com_jobs');
 		}
-	}
-	/**
-	 * Method to set up the document properties
-	 *
-	 * @return void
-	 */
-	protected function setDocument() 
-	{
-		$document = JFactory::getDocument();
-		$document->setTitle(JText::_('COM_JOBS_ADMINISTRATION'));
+
+		JHtmlSidebar::setAction('index.php?option=com_jobs&view=jobs');
+
+		JHtmlSidebar::addFilter(
+			JText::_('JOPTION_SELECT_CATEGORY'),
+			'filter_category_id',
+			JHtml::_('select.options', JHtml::_('category.options', 'com_jobs'), 'value', 'text', $state->get('filter.category_id'))
+		);
 	}
 }

@@ -1,45 +1,40 @@
 <?php
+/**
+ * @package    ComJobs
+ * @copyright  2017 David Jardin
+ * @license    GNU GPLv2 <http://www.gnu.org/licenses/gpl.html>
+ * @link       http://www.djumla.de
+ */
+
 // No direct access to this file
 defined('_JEXEC') or die;
- 
+
 /**
- * Jobs component helper.
+ * Class JobsHelper
+ *
+ * @since  0.0.1
  */
 abstract class JobsHelper
 {
 	/**
 	 * Configure the Linkbar.
+	 *
+	 * @param   string  $vName  The name of the active view.
+	 *
+	 * @return  void
 	 */
-	public static function addSubmenu($submenu) 
+	public static function addSubmenu($vName = 'jobs')
 	{
-		JSubMenuHelper::addEntry(JText::_('COM_JOBS_SUBMENU_MESSAGES'), 'index.php?option=com_jobs', $submenu == 'jobs');
-		JSubMenuHelper::addEntry(JText::_('COM_JOBS_SUBMENU_CATEGORIES'), 'index.php?option=com_categories&view=categories&extension=com_jobs', $submenu == 'categories');
-		// set some global property
-		$document = JFactory::getDocument();
-		$document->addStyleDeclaration('.icon-48-jobs {background-image: url(../media/com_jobs/images/jobs-48x48.png);}');
-		if ($submenu == 'categories') 
-		{
-			$document->setTitle(JText::_('COM_JOBS_ADMINISTRATION_CATEGORIES'));
-		}
-	}
-	/**
-	 * Get the actions
-	 */
-	public static function getActions()
-	{
-		$user	= JFactory::getUser();
-		$result	= new JObject;
-
-		$assetName = 'com_jobs';
-
-		$actions = array(
-			'core.admin', 'core.manage', 'core.create', 'core.edit', 'core.delete'
+		JHtmlSidebar::addEntry(
+			JText::_('COM_JOBS_SUBMENU_MESSAGES'),
+			'index.php?option=com_jobs',
+			$vName == 'jobs'
 		);
- 
-		foreach ($actions as $action) {
-			$result->set($action,	$user->authorise($action, $assetName));
-		}
- 
-		return $result;
+
+		JHtmlSidebar::addEntry(
+			JText::_('COM_JOBS_SUBMENU_CATEGORIES'),
+			'index.php?option=com_categories&extension=com_jobs',
+			$vName == 'categories'
+		);
 	}
 }

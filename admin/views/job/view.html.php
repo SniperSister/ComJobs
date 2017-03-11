@@ -1,101 +1,90 @@
 <?php
+/**
+ * @package    ComJobs
+ * @copyright  2017 David Jardin
+ * @license    GNU GPLv2 <http://www.gnu.org/licenses/gpl.html>
+ * @link       http://www.djumla.de
+ */
+
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
- 
-// import Joomla view library
-jimport('joomla.application.component.view');
- 
+
 /**
  * Job View
+ *
+ * @since  0.0.1
  */
-class JobsViewJob extends JView
+class JobsViewJob extends JViewLegacy
 {
+	protected $state;
+
+	protected $item;
+
+	protected $form;
+
 	/**
 	 * display method of Job view
-	 * @return void
-	 */
-	public function display($tpl = null) 
-	{
-		// get the Data
-		$form = $this->get('Form');
-		$item = $this->get('Item');
-		$script = $this->get('Script');
- 
-		// Check for errors.
-		if (count($errors = $this->get('Errors'))) 
-		{
-			JError::raiseError(500, implode('<br />', $errors));
-			return false;
-		}
-		// Assign the Data
-		$this->form = $form;
-		$this->item = $item;
-		$this->script = $script;
- 
-		// Set the toolbar
-		$this->addToolBar();
- 
-		// Display the template
-		parent::display($tpl);
- 
-		// Set the document
-		$this->setDocument();
-	}
- 
-	/**
-	 * Setting the toolbar
-	 */
-	protected function addToolBar() 
-	{
-		JFactory::getApplication()->input->set('hidemainmenu', true);
-		$isNew = $this->item->id == 0;
-		$canDo = JobsHelper::getActions($this->item->id);
-		JToolBarHelper::title($isNew ? JText::_('COM_JOBS_MANAGER_JOB_NEW') : JText::_('COM_JOBS_MANAGER_JOB_EDIT'), 'jobs');
-		// Built the actions for new and existing records.
-		if ($isNew) 
-		{
-			// For new records, check the create permission.
-			if ($canDo->get('core.create')) 
-			{
-				JToolBarHelper::apply('job.apply', 'JTOOLBAR_APPLY');
-				JToolBarHelper::save('job.save', 'JTOOLBAR_SAVE');
-				JToolBarHelper::custom('job.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
-			}
-			JToolBarHelper::cancel('job.cancel', 'JTOOLBAR_CANCEL');
-		}
-		else
-		{
-			if ($canDo->get('core.edit'))
-			{
-				// We can save the new record
-				JToolBarHelper::apply('job.apply', 'JTOOLBAR_APPLY');
-				JToolBarHelper::save('job.save', 'JTOOLBAR_SAVE');
- 
-				// We can save this record, but check the create permission to see if we can return to make a new one.
-				if ($canDo->get('core.create')) 
-				{
-					JToolBarHelper::custom('job.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
-				}
-			}
-			if ($canDo->get('core.create')) 
-			{
-				JToolBarHelper::custom('job.save2copy', 'save-copy.png', 'save-copy_f2.png', 'JTOOLBAR_SAVE_AS_COPY', false);
-			}
-			JToolBarHelper::cancel('job.cancel', 'JTOOLBAR_CLOSE');
-		}
-	}
-	/**
-	 * Method to set up the document properties
+	 *
+	 * @param   string  $tpl  template name
 	 *
 	 * @return void
 	 */
-	protected function setDocument() 
+	public function display($tpl = null)
 	{
+		// Get the Data
+		$this->form = $this->get('Form');
+		$this->item = $this->get('Item');
+		$this->state = $this->get('State');
+
+		// Check for errors.
+		if (count($errors = $this->get('Errors')))
+		{
+			throw new RuntimeException(implode('<br />', $errors), 500);
+		}
+
+		// Set the toolbar
+		$this->addToolBar();
+
+		// Add CSS for icon
+		JFactory::getDocument()->addStyleDeclaration('.icon-jobs {background:url(../media/com_jobs/images/jobs-16x16.png)}');
+
+		// Display the template
+		parent::display($tpl);
+	}
+
+	/**
+	 * Setting the toolbar
+	 *
+	 * @return  void
+	 */
+	protected function addToolBar()
+	{
+		JFactory::getApplication()->input->set('hidemainmenu', true);
+
+		$user		= JFactory::getUser();
 		$isNew = $this->item->id == 0;
-		$document = JFactory::getDocument();
-		$document->setTitle($isNew ? JText::_('COM_JOBS_JOB_CREATING') : JText::_('COM_JOBS_JOB_EDITING'));
-		$document->addScript(JURI::root() . $this->script);
-		$document->addScript(JURI::root() . "/administrator/components/com_jobs/views/job/submitbutton.js");
-		JText::script('COM_JOBS_JOB_ERROR_UNACCEPTABLE');
+		$canDo = JHelperContent::getActions('com_jobs', 'category', $this->item->catid);
+
+		JToolBarHelper::title($isNew ? JText::_('COM_JOBS_MANAGER_JOB_NEW') : JText::_('COM_JOBS_MANAGER_JOB_EDIT'), 'jobs');
+
+		// If not checked out, can save the item.
+		if ($canDo->get('core.edit')||(count($user->getAuthorisedCategories('com_jobs', 'core.create'))))
+		{
+			JToolbarHelper::apply('job.apply');
+			JToolbarHelper::save('job.save');
+		}
+
+		if (count($user->getAuthorisedCategories('com_jobs', 'core.create')))
+		{
+			JToolbarHelper::save2new('job.save2new');
+		}
+
+		// If an existing item, can save to a copy.
+		if (!$isNew && (count($user->getAuthorisedCategories('com_jobs', 'core.create')) > 0))
+		{
+			JToolbarHelper::save2copy('job.save2copy');
+		}
+
+		JToolbarHelper::cancel('job.cancel');
 	}
 }

@@ -1,66 +1,35 @@
 <?php
+/**
+ * @package    ComJobs
+ * @copyright  2017 David Jardin
+ * @license    GNU GPLv2 <http://www.gnu.org/licenses/gpl.html>
+ * @link       http://www.djumla.de
+ */
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
- 
-// import Joomla table library
-jimport('joomla.database.table');
- 
+
 /**
  * Jobs Table class
+ *
+ * @since  0.0.1
  */
 class JobsTableJobs extends JTable
 {
 	/**
+	 * Ensure the params and metadata in json encoded in the bind method
+	 *
+	 * @var    array
+	 */
+	protected $_jsonEncode = array('params');
+
+	/**
 	 * Constructor
 	 *
-	 * @param object Database connector object
+	 * @param   JDatabaseDriver  &$db  connector object
 	 */
-	function __construct(&$db) 
+	public  function __construct(&$db)
 	{
 		parent::__construct('#__jobs', 'id', $db);
 	}
-	/**
-	 * Overloaded bind function
-	 *
-	 * @param       array           named array
-	 * @return      null|string     null is operation was satisfactory, otherwise returns an error
-	 * @see JTable:bind
-	 * @since 1.5
-	 */
-	public function bind($array, $ignore = '') 
-	{
-		if (isset($array['params']) && is_array($array['params'])) 
-		{
-			// Convert the params field to a string.
-			$parameter = new JRegistry;
-			$parameter->loadArray($array['params']);
-			$array['params'] = (string)$parameter;
-		}
-		return parent::bind($array, $ignore);
-	}
- 
-	/**
-	 * Overloaded load function
-	 *
-	 * @param       int $pk primary key
-	 * @param       boolean $reset reset data
-	 * @return      boolean
-	 * @see JTable:load
-	 */
-	public function load($pk = null, $reset = true) 
-	{
-		if (parent::load($pk, $reset)) 
-		{
-			// Convert the params field to a registry.
-			$params = new JRegistry;
-            $params->loadString($this->params, 'JSON');
-			$this->params = $params;
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
 }
