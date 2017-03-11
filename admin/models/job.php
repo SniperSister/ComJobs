@@ -48,18 +48,6 @@ class JobsModelJob extends JModelAdmin
 			return false;
 		}
 
-		// Determine correct permissions to check.
-		if ($this->getState('job.id'))
-		{
-			// Existing record. Can only edit in selected categories.
-			$form->setFieldAttribute('catid', 'action', 'core.edit');
-		}
-		else
-		{
-			// New record. Can only create in selected categories.
-			$form->setFieldAttribute('catid', 'action', 'core.create');
-		}
-
 		return $form;
 	}
 
