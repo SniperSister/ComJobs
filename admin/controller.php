@@ -33,8 +33,5 @@ class JobsController extends JControllerLegacy
 
 		// Call parent behavior
 		parent::display($cachable, $urlparams);
-
-		// Set the submenu
-		JobsHelper::addSubmenu('jobs');
 	}
 }
