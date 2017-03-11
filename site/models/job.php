@@ -78,6 +78,12 @@ class JobsModelJob extends JModelItem
 			$params->loadString($this->item->params, 'JSON');
 
 			$this->item->params = $params;
+
+			// Merge global params with item params
+			$params = clone $this->getState('params');
+			$params->merge($this->item->params);
+
+			$this->item->params = $params;
 		}
 
 		return $this->item;
